@@ -3,4 +3,3 @@
   - include_tasks: tasks_docker.yml
 
   - include_tasks: tasks_docker_compose.yml
-
