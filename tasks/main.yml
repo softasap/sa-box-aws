@@ -1,7 +1,10 @@
 ---
 # tasks file for sa-box-awx
   - include_tasks: sa-python/main.yml
-    when: option_install_python
+    when: option_install_python and preferred_python_version != 3
+
+  - include_tasks: sa-python3/main.yml
+    when: option_install_python and preferred_python_version == 3
 
   - include_tasks: sa-docker/main.yml
     when: option_install_docker
@@ -11,5 +14,11 @@
 
   - include_tasks: sa-node/main.yml
     when: option_install_nodejs
+
+  - name: Specify ansible_python_interpreter for awx
+    set_fact:
+       preffered_ansible_python_interpreter: "/usr/bin/python3"
+       preffered_pip: "pip3"
+    when: preferred_python_version == 3
 
   - include_tasks: tasks_awx.yml
