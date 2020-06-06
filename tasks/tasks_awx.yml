@@ -10,7 +10,10 @@
       - awx
 
   - name: AWX | Ensure ansible
-    pip: name=ansible state=present
+    pip:
+      name: ansible
+      state: present
+      executable: "{{ preffered_pip }}"
     retries: 3
     register: result
     until: result is not failed
@@ -19,7 +22,10 @@
       - awx
 
   - name: AWX | Ensure ansible-tower-cli
-    pip: name=ansible-tower-cli state=present
+    pip:
+      name: ansible-tower-cli
+      state: present
+      executable: "{{ preffered_pip }}"
     retries: 3
     register: result
     until: result is not failed
@@ -32,6 +38,15 @@
       repo: "https://github.com/ansible/awx.git"
       dest: "{{ awx_repo_dir }}"
       version: "{{ awx_version }}"
+    tags:
+      - awx
+
+  - name: Template awx installation command.
+    template:
+      src: awx_install.sh.j2
+      dest: "{{ awx_base_dir }}/awx_install.sh"
+      mode: "u=rwx,g=rx,o="
+    become: yes
     tags:
       - awx
 
@@ -55,6 +70,7 @@
       -e create_preload_data=True
       -e secret_key=awxsecret
       -e use_docker_compose={{ option_use_dockercompose }}
+      -e ansible_python_interpreter={{ preffered_ansible_python_interpreter }}
 # pg_hostname=postgresql
     args:
       chdir: "{{ awx_repo_dir }}/installer"

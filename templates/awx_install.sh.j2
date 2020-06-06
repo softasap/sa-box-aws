@@ -1,0 +1,23 @@
+#!/bin/bash
+
+cd {{ awx_repo_dir }}/installer
+
+ansible-playbook -i inventory install.yml \
+-e postgres_data_dir={{ awx_data_dir }} \
+-e project_data_dir={{ awx_projects_dir }} \
+-e awx_task_hostname=awx \
+-e awx_web_hostname=awxweb \
+-e host_port={{ awx_host_port }} \
+-e docker_compose_dir={{ awx_base_dir }} \
+-e pg_username=awx \
+-e pg_password=awxpass \
+-e pg_database=awx \
+-e pg_port=5432 \
+-e rabbitmq_password=awxpass \
+-e rabbitmq_erlang_cookie=cookiemonster \
+-e admin_user={{ awx_admin_user }} \
+-e admin_password={{ awx_admin_pass }} \
+-e create_preload_data=True \
+-e secret_key=awxsecret \
+-e use_docker_compose={{ option_use_dockercompose }} \
+-e ansible_python_interpreter={{ preffered_ansible_python_interpreter }}

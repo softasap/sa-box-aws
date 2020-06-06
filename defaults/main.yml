@@ -8,7 +8,9 @@ option_install_nodejs: true
 
 option_use_dockercompose: true
 
-preferred_python_version: 3
+preferred_python_version: 2
+preffered_ansible_python_interpreter: auto_legacy
+preffered_pip: pip
 python_version: "3.6.10"
 
 # compability with older plays
