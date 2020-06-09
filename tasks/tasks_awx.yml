@@ -74,6 +74,7 @@
 # pg_hostname=postgresql
     args:
       chdir: "{{ awx_repo_dir }}/installer"
+    become: yes
     tags:
       - awx
       - skip_ansible_lint
