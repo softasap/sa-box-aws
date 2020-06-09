@@ -23,7 +23,7 @@ awx_base_dir: "/opt/awx"
 awx_repo_dir: "{{ awx_base_dir }}/awx"
 awx_data_dir: "{{ awx_base_dir }}/data"
 awx_projects_dir: "{{ awx_base_dir }}/projects"
-awx_version: "9.3.0"
+awx_version: "10.0.0"
 awx_host_port: 80
 
 awx_admin_user: admin
